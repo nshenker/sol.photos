@@ -24,7 +24,9 @@ const Main = (props: MainProps) => {
   const [twitterRecord, setTwitterRecord] = useState<string>('')
   const [urlRecord, setUrlRecord] = useState<string>('')
   const [name, setName] = useState<string>('')
-  const [profileUrl, setProfileUrl] = useState<string>('')
+  const [profileUrl, setProfileUrl] = useState<string>(
+    '/images/content/gray.jpeg'
+  )
 
   const connection = useMemo(() => {
     return new Connection('https://api.mainnet-beta.solana.com')
@@ -43,6 +45,9 @@ const Main = (props: MainProps) => {
           )
           setName(twitterFields.name)
           setProfileUrl(twitterFields.profile_image.replace('_normal', ''))
+        } else {
+          setProfileUrl(makeBlockie(address))
+          setName(domain)
         }
       } catch {}
 
@@ -59,29 +64,19 @@ const Main = (props: MainProps) => {
         <Cover cover="/images/content/profile-cover.png" />
         <div className={styles.profile}>
           <div className={styles.avatar}>
-            <Image
-              src={
-                profileUrl ||
-                (address && makeBlockie(address)) ||
-                '/images/content/gray.jpeg'
-              }
-              width={142}
-              height={142}
-              alt={domain}
-            />
+            <Image src={profileUrl} width={142} height={142} alt={domain} />
           </div>
           <div className={styles.details}>
-            <div className={cn('h5', styles.name)}>{name || domain}</div>
+            <div className={cn('h5', styles.name)}>{name}</div>
             <div className={styles.code}>
-              <div>
-                {address && formatWalletAddress(address, 7, 5)}
-                {twitterRecord}
-              </div>
-              <Tooltip overlay="Copy address">
-                <button className={styles.copy}>
-                  <Icon name="copy" size="20" />
-                </button>
-              </Tooltip>
+              <div>{address && formatWalletAddress(address, 7, 5)}</div>
+              {address && (
+                <Tooltip overlay="Copy address">
+                  <button className={styles.copy}>
+                    <Icon name="copy" size="20" />
+                  </button>
+                </Tooltip>
+              )}
             </div>
           </div>
 
