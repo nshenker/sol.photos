@@ -12,7 +12,7 @@ const Home: NextPage = () => {
     } else if (hostname.endsWith('.sol.photos')) {
       setDomain(hostname.replace('.photos', ''))
     } else {
-      setDomain('bonfida.sol')
+      setDomain('onybose.sol')
     }
   }, [])
 

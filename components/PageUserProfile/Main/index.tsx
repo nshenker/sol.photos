@@ -85,27 +85,29 @@ const Main = (props: MainProps) => {
             </div>
           </div>
 
-          {twitterRecord && (
-            <button
-              className={cn('button-stroke button-sm', styles.share)}
-              onClick={() =>
-                window.open(`https://twitter.com/${twitterRecord}`, '_blank')
-              }
-            >
-              <Icon name="twitter" size="16" />
-              Twitter
-            </button>
-          )}
+          <div className={styles.share}>
+            {twitterRecord && (
+              <button
+                className={cn('button-stroke button-sm', styles.btn)}
+                onClick={() =>
+                  window.open(`https://twitter.com/${twitterRecord}`, '_blank')
+                }
+              >
+                <Icon name="twitter" size="16" />
+                Twitter
+              </button>
+            )}
 
-          {urlRecord && (
-            <button
-              className={cn('button-stroke button-sm', styles.share)}
-              onClick={() => window.open(urlRecord, '_blank')}
-            >
-              <Icon name="link" size="16" />
-              Website
-            </button>
-          )}
+            {urlRecord && (
+              <button
+                className={cn('button-stroke button-sm', styles.btn)}
+                onClick={() => window.open(urlRecord, '_blank')}
+              >
+                <Icon name="link" size="16" />
+                Website
+              </button>
+            )}
+          </div>
         </div>
       </div>
     </div>
