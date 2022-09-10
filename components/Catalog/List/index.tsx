@@ -8,27 +8,24 @@ import { NFT } from '../../../types'
 type ListProps = {
   className?: string
   items: NFT[]
-  bigPreview?: boolean
-  col2?: boolean
+  loading: boolean
 }
 
-const List = ({ className, items, bigPreview, col2 }: ListProps) => {
+const List = ({ className, items, loading }: ListProps) => {
   return (
     <>
-      <div className={cn(styles.list, { [styles.list_2]: col2 }, className)}>
+      <div className={cn(styles.list, className)}>
         {items.map((x, index) => (
-          <Card
-            className={styles.card}
-            item={x}
-            key={index + Date.now()}
-            bigPreview={bigPreview}
-          />
+          <Card className={styles.card} item={x} key={index + Date.now()} />
         ))}
       </div>
       <div className={styles.btns}>
-        <button className={cn('button-stroke', styles.button)}>
-          <Loader className={styles.loader} />
-          Load more
+        <button
+          className={cn('button-stroke', styles.button)}
+          disabled={loading}
+        >
+          {loading && <Loader className={styles.loader} />}
+          {loading ? 'Loading' : 'Load more'}
         </button>
       </div>
     </>

@@ -16,6 +16,7 @@ type UserProfileProps = {
 const UserProfile = (props: UserProfileProps) => {
   const [address, setAddress] = useState<string>('')
   const [assets, setAssets] = useState<NFT[]>([])
+  const [loading, setLoading] = useState<boolean>(false)
 
   const connection = useMemo(() => {
     return new Connection('https://api.mainnet-beta.solana.com')
@@ -26,6 +27,8 @@ const UserProfile = (props: UserProfileProps) => {
       if (!props.domain) {
         return
       }
+
+      setLoading(true)
 
       const { pubkey } = await getDomainKey(props.domain)
       const {
@@ -64,6 +67,8 @@ const UserProfile = (props: UserProfileProps) => {
               } as NFT)
           )
         )
+
+        setLoading(false)
       })
     })()
   }, [connection, props.domain])
@@ -71,7 +76,7 @@ const UserProfile = (props: UserProfileProps) => {
   return (
     <div className={cn('section-main', styles.section)}>
       <Main domain={props.domain} address={address} />
-      <Catalog assets={assets} className={styles.catalog} />
+      <Catalog assets={assets} className={styles.catalog} loading={loading} />
     </div>
   )
 }

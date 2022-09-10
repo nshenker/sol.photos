@@ -3,7 +3,7 @@ import axios from 'axios'
 
 export default function handler(req: NextApiRequest, res: NextApiResponse) {
   const { query } = req
-  const { address } = query
+  const { address, page } = query
 
   const config = {
     headers: {
@@ -16,8 +16,8 @@ export default function handler(req: NextApiRequest, res: NextApiResponse) {
     method: 'qn_fetchNFTs',
     params: {
       wallet: address,
-      page: 1,
-      perPage: 10,
+      page: page || 1,
+      perPage: 18,
     },
   }
 
