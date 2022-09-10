@@ -45,11 +45,11 @@ const Main = (props: MainProps) => {
           )
           setName(twitterFields.name)
           setProfileUrl(twitterFields.profile_image.replace('_normal', ''))
-        } else {
-          setProfileUrl(makeBlockie(address))
-          setName(domain)
         }
-      } catch {}
+      } catch {
+        address && setProfileUrl(makeBlockie(address))
+        setName(domain)
+      }
 
       try {
         const { data } = await getUrlRecord(connection, domain)
