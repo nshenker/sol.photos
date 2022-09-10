@@ -4,6 +4,8 @@ import Tooltip from "rc-tooltip";
 import { getDomainKey, getTwitterRecord, getUrlRecord } from "@bonfida/spl-name-service";
 import { Connection } from "@solana/web3.js"
 import axios from "axios";
+import makeBlockie from 'ethereum-blockies-base64';
+
 
 import styles from "./Main.module.sass";
 import Cover from "../../Profile/Cover";
@@ -62,15 +64,25 @@ const Main = (props: MainProps) => {
                 />
                 <div className={styles.profile}>
                     <div className={styles.avatar}>
-                        <Image
-                            src={profileUrl || "/images/content/avatar.png"}
+                        {profileUrl && <Image
+                                src={profileUrl}
+                                width={142}
+                                height={142}
+                                alt={domain}
+                            />
+                        }
+
+                        {!profileUrl && address && <Image
+                            src={makeBlockie(address)}
                             width={142}
                             height={142}
-                            alt={name}
+                            alt={domain}
                         />
+                        }
+
                     </div>
                     <div className={styles.details}>
-                        <div className={cn("h6", styles.name)}>{name || domain}</div>
+                        <div className={cn("h5", styles.name)}>{name || domain}</div>
                         <div className={styles.code}>
                             <div>
                                 {formatWalletAddress(address, 7, 5)}
