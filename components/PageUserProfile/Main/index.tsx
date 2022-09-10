@@ -64,21 +64,13 @@ const Main = (props: MainProps) => {
                 />
                 <div className={styles.profile}>
                     <div className={styles.avatar}>
-                        {profileUrl && <Image
-                                src={profileUrl}
-                                width={142}
-                                height={142}
-                                alt={domain}
-                            />
-                        }
-
-                        {!profileUrl && address && <Image
-                            src={makeBlockie(address)}
+                        <Image
+                            src={profileUrl || (address && makeBlockie(address)) || "/images/content/gray.jpeg"}
                             width={142}
                             height={142}
                             alt={domain}
                         />
-                        }
+
 
                     </div>
                     <div className={styles.details}>
