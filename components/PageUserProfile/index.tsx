@@ -5,12 +5,14 @@ import styles from "./PageUserProfile.module.sass";
 
 import {sortingMarket} from "../../mocks/sortingCatalog";
 
-type UserProfileProps = {};
+type UserProfileProps = {
+    domain: string
+};
 
-const UserProfile = ({}: UserProfileProps) => {
+const UserProfile = (props: UserProfileProps) => {
     return (
         <div className={cn("section-main", styles.section)}>
-            <Main domain="bonfida.sol" />
+            <Main domain={props.domain} />
             <Catalog value={sortingMarket} className={styles.catalog} />
         </div>
     );
