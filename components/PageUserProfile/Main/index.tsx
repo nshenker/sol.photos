@@ -16,12 +16,12 @@ import { formatWalletAddress } from "../../../utils";
 
 type MainProps = {
     domain: string
+    address: string
 };
 
 const Main = (props: MainProps) => {
-    const { domain } = props
+    const { domain, address } = props
 
-    const [address, setAddress] = useState<string>("")
     const [twitterRecord, setTwitterRecord] = useState<string>("")
     const [urlRecord, setUrlRecord] = useState<string>("")
     const [name, setName] = useState<string>("")
@@ -34,9 +34,6 @@ const Main = (props: MainProps) => {
 
     useEffect(() => {
         (async () => {
-            const { pubkey } = await getDomainKey(domain)
-            setAddress(pubkey.toBase58())
-
             try {
                 const { data } = await getTwitterRecord(connection, domain);
                 const handle = data?.toString('utf-8') ?? ""
@@ -77,7 +74,7 @@ const Main = (props: MainProps) => {
                         <div className={cn("h5", styles.name)}>{name || domain}</div>
                         <div className={styles.code}>
                             <div>
-                                {formatWalletAddress(address, 7, 5)}
+                                {address && formatWalletAddress(address, 7, 5)}
                                 {twitterRecord}
                             </div>
                             <Tooltip overlay="Copy address">
