@@ -1,0 +1,9 @@
+.next
+build
+coverage
+**/.git
+**/node_modules
+*.html
+*.sass
+*.css
+*.json

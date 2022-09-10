@@ -1,13 +1,13 @@
-import type { NextPage } from "next";
-import Layout from "../components/Layout";
-import Page404 from "../components/Page404";
+import type { NextPage } from 'next'
+import Layout from '../components/Layout'
+import Page404 from '../components/Page404'
 
 const Home: NextPage = () => {
-    return (
-        <Layout>
-            <Page404 />
-        </Layout>
-    );
-};
+  return (
+    <Layout>
+      <Page404 />
+    </Layout>
+  )
+}
 
-export default Home;
+export default Home
