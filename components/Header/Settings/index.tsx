@@ -42,7 +42,7 @@ const Settings = ({ items, className }: SettingsProps) => {
                     />
                 </button>
                 <div className={styles.body}>
-                    <Link href="/Domain">
+                    <Link href="/Index">
                         <a className={styles.top}>
                             <div className={styles.details}>
                                 <div className={cn("title", styles.user)}>

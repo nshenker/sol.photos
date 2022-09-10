@@ -7,8 +7,6 @@ import Icon from "../../Icon";
 import TabDescription from "./TabDescription";
 import TabDetails from "./TabDetails";
 import History from "../../Details/History";
-import ModalShareProfile from "../../ModalShareProfile";
-import ModalPurchase from "../../ModalPurchase";
 
 import { history } from "../../../mocks/characterDetails";
 
@@ -25,8 +23,6 @@ type CardDetailsProps = {};
 
 const CardDetails = ({}: CardDetailsProps) => {
     const [activeIndex, setActiveIndex] = useState<number>(0);
-    const [visibleShare, setVisibleShare] = useState<boolean>(false);
-    const [visiblePurchase, setVisiblePurchase] = useState<boolean>(false);
 
     return (
         <div className={cn("section-main", styles.section)}>
@@ -49,26 +45,16 @@ const CardDetails = ({}: CardDetailsProps) => {
                         <div className={styles.control}>
                             <button
                                 className={cn("button", styles.button)}
-                                onClick={() => setVisiblePurchase(true)}
+                                onClick={() => {}}
                             >
                                 Purchase now
                             </button>
-                            <ModalPurchase
-                                visibleModal={visiblePurchase}
-                                setVisibleModal={() =>
-                                    setVisiblePurchase(false)
-                                }
-                            />
                             <button
                                 className={styles.share}
-                                onClick={() => setVisibleShare(true)}
+                                onClick={() => {}}
                             >
                                 <Icon name="share" />
                             </button>
-                            <ModalShareProfile
-                                visibleModal={visibleShare}
-                                setVisibleModal={() => setVisibleShare(false)}
-                            />
                         </div>
                         <div className={styles.nav}>
                             {navigation.map((link, index) => (

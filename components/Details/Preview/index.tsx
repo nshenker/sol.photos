@@ -1,10 +1,8 @@
-import { useState } from "react";
 import styles from "./Preview.module.sass";
 import cn from "classnames";
 import Image from "../../Image";
 import Back from "../../Back";
 import Icon from "../../Icon";
-import ModalShareProfile from "../../ModalShareProfile";
 
 type PreviewProps = {
     className?: string;
@@ -21,8 +19,6 @@ const Preview = ({
     share,
     url,
 }: PreviewProps) => {
-    const [modalShare, setModalShare] = useState<boolean>(false);
-
     return (
         <div
             className={cn(styles.preview, className)}
@@ -39,14 +35,10 @@ const Preview = ({
                 <>
                     <button
                         className={styles.share}
-                        onClick={() => setModalShare(true)}
+                        onClick={() => {}}
                     >
                         <Icon name="share" size="20" />
                     </button>
-                    <ModalShareProfile
-                        visibleModal={modalShare}
-                        setVisibleModal={() => setModalShare(false)}
-                    />
                 </>
             )}
         </div>

@@ -3,7 +3,6 @@ import cn from "classnames";
 import styles from "./Card.module.sass";
 import Image from "../Image";
 import Icon from "../Icon";
-import Favorite from "../Favorite";
 
 import { numberWithCommas } from "../../utils";
 
@@ -48,7 +47,6 @@ const Card = ({ className, item, bigPreview }: CardProps) => {
                     </div>
                 )}
                 <div className={styles.details}>
-                    <Favorite className={styles.favorite} />
                     <Link href={item.url}>
                         <a
                             className={cn(

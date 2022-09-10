@@ -4,31 +4,24 @@ import Image from "../../Image";
 
 type ProfileCoverProps = {
     className?: string;
-    cover?: string;
-    min?: boolean;
+    cover: string;
 };
 
 const ProfileCover = ({
     className,
     cover,
-    min,
 }: ProfileCoverProps) => {
     return (
         <div
             className={cn(
                 styles.wrapper,
-                {
-                    [styles.min]: min,
-                },
                 className
             )}
         >
+            {
                 <div className={styles.container}>
-                    {cover && (
                         <div
-                            className={cn(styles.cover, {
-                                [styles.min]: min,
-                            })}
+                            className={cn(styles.cover)}
                         >
                             <Image
                                 src={cover}
@@ -36,8 +29,8 @@ const ProfileCover = ({
                                 alt="Profile cover"
                             />
                         </div>
-                    )}
                 </div>
+            }
         </div>
     );
 };
