@@ -56,7 +56,7 @@ const Main = (props: MainProps) => {
         setUrlRecord(data?.toString('utf-8') ?? '')
       } catch {}
     })()
-  }, [connection, domain])
+  }, [connection, domain, address])
 
   return (
     <div className={cn('container-lg', styles.container)}>
