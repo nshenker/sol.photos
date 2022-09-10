@@ -5,8 +5,8 @@ import cn from 'classnames'
 import Main from './Main'
 import Catalog from '../Catalog'
 import styles from './PageUserProfile.module.sass'
-import { sortingMarket } from '../../mocks/sortingCatalog'
 import axios from 'axios'
+import { NFT, Trait, Transaction } from '../../types'
 
 type UserProfileProps = {
   domain: string
@@ -14,7 +14,7 @@ type UserProfileProps = {
 
 const UserProfile = (props: UserProfileProps) => {
   const [address, setAddress] = useState<string>('')
-  const [nfts, setNfts] = useState()
+  const [assets, setAssets] = useState<NFT[]>([])
 
   useEffect(() => {
     ;(async () => {
@@ -26,17 +26,42 @@ const UserProfile = (props: UserProfileProps) => {
       axios
         .post(`/api/nfts?address=8eekKfUAGSJbq3CdA2TmHb8tKuyzd5gtEas3MYAtXzrT`)
         .then((response) => {
-          setNfts(response.data)
+          const assets = response.data.result.assets
+
+          setAssets(
+            assets.map(
+              (asset: any) =>
+                ({
+                  name: asset.name,
+                  description: asset.description,
+                  collection: asset.collectionName,
+                  image: asset.imageUrl,
+                  traits: asset.traits.map(
+                    (trait: any) =>
+                      ({
+                        type: trait.trait_type,
+                        value: trait.value,
+                      } as Trait)
+                  ),
+                  provenance: asset.provenance.map(
+                    (txn: any) =>
+                      ({
+                        date: txn.date,
+                        blockNumber: txn.blockNumber,
+                        hash: txn.txHash,
+                      } as Transaction)
+                  ),
+                } as NFT)
+            )
+          )
         })
     })()
   }, [props.domain])
 
-  console.log(nfts)
-
   return (
     <div className={cn('section-main', styles.section)}>
       <Main domain={props.domain} address={address} />
-      <Catalog value={sortingMarket} className={styles.catalog} />
+      <Catalog assets={assets} className={styles.catalog} />
     </div>
   )
 }

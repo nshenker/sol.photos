@@ -3,11 +3,11 @@ import cn from 'classnames'
 import Card from '../../Card'
 import Loader from '../../Loader'
 
-import { ItemsType } from '../../../types'
+import { NFT } from '../../../types'
 
 type ListProps = {
   className?: string
-  items: ItemsType[]
+  items: NFT[]
   bigPreview?: boolean
   col2?: boolean
 }
