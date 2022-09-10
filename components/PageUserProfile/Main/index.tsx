@@ -37,22 +37,22 @@ const Main = (props: MainProps) => {
 
             try {
                 const { data } = await getTwitterRecord(connection, domain);
-                setTwitterRecord(data?.toString('utf-8') ?? "")
+                const handle = data?.toString('utf-8') ?? ""
+                setTwitterRecord(handle)
+
+                if (handle) {
+                    const { data: twitterFields } = await axios.get(`/api/twitter?handle=${handle}`)
+                    setName(twitterFields.name)
+                    setProfileUrl(twitterFields.profile_image.replace("_normal", ""))
+                }
             } catch {}
 
             try {
                 const { data } = await getUrlRecord(connection, domain);
                 setUrlRecord(data?.toString('utf-8') ?? "")
             } catch {}
-
-            try {
-                const { data } = await axios.get(`/api/twitter?handle=onybose`)
-                console.log(data)
-                setName(data.name)
-                setProfileUrl(data.profile_image.replace("_normal", ""))
-            } catch {}
         })();
-    }, [domain])
+    }, [connection, domain])
 
     return (
         <div className={cn("container-lg", styles.container)}>
@@ -70,7 +70,7 @@ const Main = (props: MainProps) => {
                         />
                     </div>
                     <div className={styles.details}>
-                        <div className={cn("h6", styles.name)}>{name}</div>
+                        <div className={cn("h6", styles.name)}>{name || domain}</div>
                         <div className={styles.code}>
                             <div>
                                 {formatWalletAddress(address, 7, 5)}

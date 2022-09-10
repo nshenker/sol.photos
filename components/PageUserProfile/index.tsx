@@ -10,6 +10,7 @@ type UserProfileProps = {
 };
 
 const UserProfile = (props: UserProfileProps) => {
+    console.log(props.domain)
     return (
         <div className={cn("section-main", styles.section)}>
             <Main domain={props.domain} />
