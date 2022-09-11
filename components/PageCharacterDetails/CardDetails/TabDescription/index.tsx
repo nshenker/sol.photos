@@ -34,16 +34,14 @@ const Tab = (props: TabProps) => (
         className={styles.details}
       />
     </div>
-    {props.asset.traits.length !== 0 &&
-      props.asset.traits[0].type === 'background' &&
-      props.asset.traits.length === 1 && (
-        <div className={styles.grouped}>
-          <div className={cn(styles.item)}>
-            <div className={styles.category}>Stats</div>
-            <Stats items={props.asset.traits} />
-          </div>
+    {props.asset.traits.length !== 0 && (
+      <div className={styles.grouped}>
+        <div className={cn(styles.item)}>
+          <div className={styles.category}>Stats</div>
+          <Stats items={props.asset.traits} />
         </div>
-      )}
+      </div>
+    )}
   </div>
 )
 
