@@ -14,9 +14,13 @@ type UserProfileProps = {
   domain: string
 }
 
+type AssetsType = {
+  [page: number]: NFT[]
+}
+
 const UserProfile = (props: UserProfileProps) => {
   const [address, setAddress] = useState<string>('')
-  const [assets, setAssets] = useState<NFT[]>([])
+  const [assets, setAssets] = useState<AssetsType>({})
   const [loading, setLoading] = useState<boolean>(false)
   const [page, setPage] = useState<number>(1)
   const [allPagesFetched, setAllPagesFetched] = useState<boolean>(false)
@@ -28,6 +32,10 @@ const UserProfile = (props: UserProfileProps) => {
   useEffect(() => {
     ;(async () => {
       if (!props.domain) {
+        return
+      }
+
+      if (assets[page] !== undefined) {
         return
       }
 
@@ -47,9 +55,8 @@ const UserProfile = (props: UserProfileProps) => {
           setAllPagesFetched(true)
         }
 
-        setAssets([
-          ...assets,
-          ...rawAssets.map(
+        setAssets({
+          [page]: rawAssets.map(
             (asset: any) =>
               ({
                 name: asset.name,
@@ -73,7 +80,7 @@ const UserProfile = (props: UserProfileProps) => {
                 ),
               } as NFT)
           ),
-        ])
+        })
 
         setLoading(false)
       })
@@ -81,14 +88,18 @@ const UserProfile = (props: UserProfileProps) => {
   }, [assets, connection, page, props.domain])
 
   if (!props.domain) {
-    return <Home />
+    return (
+      <div className={cn('section-main', styles.section)}>
+        <Home />
+      </div>
+    )
   }
 
   return (
     <div className={cn('section-main', styles.section)}>
       <Main domain={props.domain} address={address} />
       <Catalog
-        assets={assets}
+        assets={([] as NFT[]).concat(...Object.values(assets))}
         className={styles.catalog}
         loading={loading}
         nextPage={() => setPage(page + 1)}
