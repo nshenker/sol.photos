@@ -87,12 +87,16 @@ const UserProfile = (props: UserProfileProps) => {
     })()
   }, [assets, connection, page, props.domain])
 
-  if (window.location.hostname === 'sol.photos') {
-    return (
-      <div className={cn('section-main', styles.section)}>
-        <Home />
-      </div>
-    )
+  // NextJS will optimise this block by not trying to render
+  // server-side.
+  if (typeof window !== 'undefined') {
+    if (window.location.hostname === 'sol.photos') {
+      return (
+        <div className={cn('section-main', styles.section)}>
+          <Home />
+        </div>
+      )
+    }
   }
 
   return (
