@@ -16,11 +16,7 @@ const Home: NextPage = () => {
     }
   }, [])
 
-  return (
-    <Layout>
-      <PageProfile domain={domain} />
-    </Layout>
-  )
+  return <Layout>{domain ? <PageProfile domain={domain} /> : <Home />}</Layout>
 }
 
 export default Home
