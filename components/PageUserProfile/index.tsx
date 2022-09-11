@@ -87,7 +87,7 @@ const UserProfile = (props: UserProfileProps) => {
     })()
   }, [assets, connection, page, props.domain])
 
-  if (!props.domain) {
+  if (window.location.hostname === 'sol.photos') {
     return (
       <div className={cn('section-main', styles.section)}>
         <Home />
