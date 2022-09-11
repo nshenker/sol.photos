@@ -10,6 +10,7 @@ type ListProps = {
   loading: boolean
   nextPage: () => void
   allPagesFetched: boolean
+  setViewDetailFor: (nft: NFT) => void
 }
 
 const Catalog = ({
@@ -18,6 +19,7 @@ const Catalog = ({
   loading,
   nextPage,
   allPagesFetched,
+  setViewDetailFor,
 }: ListProps) => {
   return (
     <div className={cn(styles.catalog, className)}>
@@ -29,6 +31,7 @@ const Catalog = ({
             loading={loading}
             nextPage={nextPage}
             allPagesFetched={allPagesFetched}
+            setViewDetailFor={setViewDetailFor}
           />
         </div>
       </div>

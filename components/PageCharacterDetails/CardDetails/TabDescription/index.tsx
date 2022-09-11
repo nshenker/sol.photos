@@ -10,53 +10,40 @@ import {
   stats,
   property,
 } from '../../../../mocks/characterDetails'
+import { NFT } from '../../../../types'
 
-type TabProps = {}
+type TabProps = {
+  asset: NFT
+}
 
-const Tab = ({}: TabProps) => (
+const Tab = (props: TabProps) => (
   <div className={styles.tab}>
     <div className={styles.item}>
-      <Content className={styles.content} moreButton>
-        <p>
-          Eius eum sunt in nulla autem voluptas facilis et magnam. Provident
-          accusamus omnis quos sunt. Illo enim consequuntur ratione aperiam eum
-          rerum. Incidunt rerum maxime voluptas ad pariatur. Consequatur
-          mollitia illum quia aut.
-        </p>
-        <ul>
-          <li>Et perspiciatis fugit ratione.</li>
-          <li>Iste animi consectetur dicta dolorem delectus.</li>
-          <li>Et perspiciatis fugit ratione.</li>
-          <li>Dolores nesciunt non omnis nisi consequuntu</li>
-          <li>Et perspiciatis fugit ratione.</li>
-        </ul>
+      <Content className={styles.content}>
+        <p>{props.asset.description}</p>
       </Content>
     </div>
     <div className={styles.item}>
       <Parameters
-        parameters={parametersDescription}
-        className={styles.parameters}
+        parameters={[
+          {
+            label: 'Owned by',
+            content: props.asset.tokenAddress,
+          },
+        ]}
+        className={styles.details}
       />
     </div>
-    <div className={styles.grouped}>
-      <div className={cn(styles.item)}>
-        <div className={styles.category}>Stats</div>
-        <Stats items={stats} />
-      </div>
-      <div className={cn(styles.item)}>
-        <div className={styles.category}>Property</div>
-        <Stats items={property} />
-      </div>
-    </div>
-    <div className={styles.item}>
-      <div className={styles.category}>Weapon</div>
-      <button className={styles.add}>
-        <div className={styles.icon}>
-          <Icon name="add" />
+    {props.asset.traits.length !== 0 &&
+      props.asset.traits[0].type === 'background' &&
+      props.asset.traits.length === 1 && (
+        <div className={styles.grouped}>
+          <div className={cn(styles.item)}>
+            <div className={styles.category}>Stats</div>
+            <Stats items={props.asset.traits} />
+          </div>
         </div>
-        <span>No weapon</span>
-      </button>
-    </div>
+      )}
   </div>
 )
 

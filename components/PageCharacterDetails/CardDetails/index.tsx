@@ -1,28 +1,23 @@
 import { useState } from 'react'
 import styles from './CardDetails.module.sass'
 import cn from 'classnames'
+
 import Preview from '../../Details/Preview'
 import Description from '../../Details/Description'
-import Icon from '../../Icon'
 import TabDescription from './TabDescription'
 import TabDetails from './TabDetails'
-import History from '../../Details/History'
+import { NFT } from '../../../types'
 
-import { history } from '../../../mocks/characterDetails'
+const navigation: Array<string> = ['Description', 'Details']
 
-const imagePreview = {
-  src: '/images/content/characters/image-3.png',
-  width: 700,
-  height: 700,
-  alt: 'Character',
+type CardDetailsProps = {
+  asset: NFT
+  onClose: () => void
 }
 
-const navigation: Array<string> = ['Description', 'Details', 'History']
-
-type CardDetailsProps = {}
-
-const CardDetails = ({}: CardDetailsProps) => {
+const CardDetails = (props: CardDetailsProps) => {
   const [activeIndex, setActiveIndex] = useState<number>(0)
+  const { asset, onClose } = props
 
   return (
     <div className={cn('section-main', styles.section)}>
@@ -30,29 +25,16 @@ const CardDetails = ({}: CardDetailsProps) => {
         <div className={styles.row}>
           <Preview
             className={styles.preview}
-            image={imagePreview}
-            background="#E5DCF3"
-            url="/marketplace"
+            image={asset.image}
+            onClose={onClose}
           />
           <div className={styles.wrap}>
             <Description
               className={styles.description}
-              title="Lumburr"
-              code="078982"
-              crypto="0.08 ETH"
-              price={221.38}
+              title={asset.name}
+              code={asset.collection}
             />
-            <div className={styles.control}>
-              <button
-                className={cn('button', styles.button)}
-                onClick={() => {}}
-              >
-                Purchase now
-              </button>
-              <button className={styles.share} onClick={() => {}}>
-                <Icon name="share" />
-              </button>
-            </div>
+
             <div className={styles.nav}>
               {navigation.map((link, index) => (
                 <button
@@ -67,9 +49,8 @@ const CardDetails = ({}: CardDetailsProps) => {
               ))}
             </div>
             <div className={styles.group}>
-              {activeIndex === 0 && <TabDescription />}
-              {activeIndex === 1 && <TabDetails />}
-              {activeIndex === 2 && <History items={history} />}
+              {activeIndex === 0 && <TabDescription asset={asset} />}
+              {activeIndex === 1 && <TabDetails asset={asset} />}
             </div>
           </div>
         </div>

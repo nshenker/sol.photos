@@ -11,6 +11,7 @@ type ListProps = {
   loading: boolean
   nextPage: () => void
   allPagesFetched: boolean
+  setViewDetailFor: (nft: NFT) => void
 }
 
 const List = ({
@@ -19,12 +20,18 @@ const List = ({
   loading,
   nextPage,
   allPagesFetched,
+  setViewDetailFor,
 }: ListProps) => {
   return (
     <>
       <div className={cn(styles.list, className)}>
         {items.map((x, index) => (
-          <Card className={styles.card} item={x} key={index + Date.now()} />
+          <Card
+            className={styles.card}
+            item={x}
+            key={index + Date.now()}
+            setViewDetailFor={setViewDetailFor}
+          />
         ))}
       </div>
 

@@ -10,6 +10,7 @@ import { NFT } from '../../types'
 type CardProps = {
   className?: string
   item: NFT
+  setViewDetailFor: (nft: NFT) => void
 }
 
 type LoaderProps = {
@@ -22,7 +23,7 @@ const nftImageLoader = ({ src, width, quality }: LoaderProps) => {
   return `${src}?w=${width}&q=${quality || 75}`
 }
 
-const Card = ({ className, item }: CardProps) => {
+const Card = ({ className, item, setViewDetailFor }: CardProps) => {
   return (
     <div className={cn(styles.card, className)}>
       <div className={styles.preview}>
@@ -36,17 +37,12 @@ const Card = ({ className, item }: CardProps) => {
           />
         </div>
         <div className={styles.details}>
-          <Link href="">
-            <a
-              className={cn(
-                'button-stroke',
-                styles.button,
-                styles.buttonDetails
-              )}
-            >
-              View detail
-            </a>
-          </Link>
+          <button
+            className={cn('button-stroke', styles.button, styles.buttonDetails)}
+            onClick={() => setViewDetailFor(item)}
+          >
+            View detail
+          </button>
         </div>
       </div>
       <div className={cn('details_bottom', styles.details_bottom)}>

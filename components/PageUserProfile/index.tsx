@@ -9,6 +9,7 @@ import Catalog from '../Catalog'
 import styles from './PageUserProfile.module.sass'
 import { NFT, Trait, Transaction } from '../../types'
 import Home from '../Home'
+import CardDetails from '../PageCharacterDetails/CardDetails'
 
 type UserProfileProps = {
   domain: string
@@ -24,6 +25,7 @@ const UserProfile = (props: UserProfileProps) => {
   const [loading, setLoading] = useState<boolean>(false)
   const [page, setPage] = useState<number>(1)
   const [allPagesFetched, setAllPagesFetched] = useState<boolean>(false)
+  const [viewDetailFor, setViewDetailFor] = useState<NFT | undefined>(undefined)
 
   const connection = useMemo(() => {
     return new Connection('https://api.mainnet-beta.solana.com')
@@ -78,6 +80,7 @@ const UserProfile = (props: UserProfileProps) => {
                       hash: txn.txHash,
                     } as Transaction)
                 ),
+                tokenAddress: asset.tokenAddress,
               } as NFT)
           ),
         })
@@ -99,6 +102,15 @@ const UserProfile = (props: UserProfileProps) => {
     }
   }
 
+  if (viewDetailFor) {
+    return (
+      <CardDetails
+        asset={viewDetailFor}
+        onClose={() => setViewDetailFor(undefined)}
+      />
+    )
+  }
+
   return (
     <div className={cn('section-main', styles.section)}>
       <Main domain={props.domain} address={address} />
@@ -108,6 +120,7 @@ const UserProfile = (props: UserProfileProps) => {
         loading={loading}
         nextPage={() => setPage(page + 1)}
         allPagesFetched={allPagesFetched}
+        setViewDetailFor={setViewDetailFor}
       />
     </div>
   )

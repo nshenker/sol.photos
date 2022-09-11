@@ -9,15 +9,7 @@ type ContentProps = {
 }
 
 const Content = ({ className, children, moreButton }: ContentProps) => (
-  <div className={cn(styles.content, className)}>
-    {children}
-    {moreButton && (
-      <button className={styles.more}>
-        <span>Learn more</span>
-        <Icon name="chevron-down" />
-      </button>
-    )}
-  </div>
+  <div className={cn(styles.content, className)}>{children}</div>
 )
 
 export default Content

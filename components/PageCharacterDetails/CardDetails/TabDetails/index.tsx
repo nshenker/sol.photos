@@ -7,22 +7,35 @@ import {
   parametersDetails,
   viewLinks,
 } from '../../../../mocks/characterDetails'
+import { NFT } from '../../../../types'
 
-type TabProps = {}
+type TabProps = {
+  asset: NFT
+}
 
-const Tab = ({}: TabProps) => (
+const Tab = (props: TabProps) => (
   <div className={styles.tab}>
     <div className={styles.item}>
-      <Parameters parameters={parametersDetails} className={styles.details} />
+      <Parameters
+        parameters={[
+          {
+            label: 'Owned by',
+            content: props.asset.tokenAddress,
+          },
+        ]}
+        className={styles.details}
+      />
     </div>
     <div className={styles.item}>
-      <div className={styles.content}>
-        <p>
-          Eius eum sunt in nulla autem voluptas facilis et magnam. Provident
-          accusamus omnis quos sunt:
-        </p>
-      </div>
-      <Views links={viewLinks} />
+      <Views
+        links={[
+          {
+            title: 'View on explorer',
+            url: `https://solscan.io/account/${props.asset.tokenAddress}`,
+            image: '/images/solscan-logo.png',
+          },
+        ]}
+      />
     </div>
   </div>
 )

@@ -7,37 +7,29 @@ import Icon from '../../Icon'
 type PreviewProps = {
   className?: string
   image: any
-  background: string
-  share?: boolean
-  url?: string
+  onClose: () => void
 }
 
-const Preview = ({
-  className,
-  image,
-  background,
-  share,
-  url,
-}: PreviewProps) => {
+type LoaderProps = {
+  src: string
+  width: number
+  quality?: number
+}
+const nftImageLoader = ({ src, width, quality }: LoaderProps) => {
+  return `${src}?w=${width}&q=${quality || 75}`
+}
+
+const Preview = ({ className, image, onClose }: PreviewProps) => {
   return (
-    <div
-      className={cn(styles.preview, className)}
-      style={{ background: background }}
-    >
+    <div className={cn(styles.preview, className)}>
       <Image
-        src={image.src}
-        width={image.width}
-        height={image.height}
-        alt={image.alt}
+        loader={nftImageLoader}
+        src={image}
+        layout="fill"
+        objectFit="contain"
+        alt=""
       />
-      <Back className={styles.back} tooltip="Back" url={url} dark />
-      {share && (
-        <>
-          <button className={styles.share} onClick={() => {}}>
-            <Icon name="share" size="20" />
-          </button>
-        </>
-      )}
+      <Back className={styles.back} tooltip="Back" onAction={onClose} />
     </div>
   )
 }
