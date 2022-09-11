@@ -8,6 +8,7 @@ import Main from './Main'
 import Catalog from '../Catalog'
 import styles from './PageUserProfile.module.sass'
 import { NFT, Trait, Transaction } from '../../types'
+import Home from '../Home'
 
 type UserProfileProps = {
   domain: string
@@ -77,7 +78,11 @@ const UserProfile = (props: UserProfileProps) => {
         setLoading(false)
       })
     })()
-  }, [connection, page, props.domain])
+  }, [assets, connection, page, props.domain])
+
+  if (!props.domain) {
+    return <Home />
+  }
 
   return (
     <div className={cn('section-main', styles.section)}>
