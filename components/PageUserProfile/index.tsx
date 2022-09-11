@@ -17,6 +17,8 @@ const UserProfile = (props: UserProfileProps) => {
   const [address, setAddress] = useState<string>('')
   const [assets, setAssets] = useState<NFT[]>([])
   const [loading, setLoading] = useState<boolean>(false)
+  const [page, setPage] = useState<number>(1)
+  const [allPagesFetched, setAllPagesFetched] = useState<boolean>(false)
 
   const connection = useMemo(() => {
     return new Connection('https://api.mainnet-beta.solana.com')
@@ -38,11 +40,15 @@ const UserProfile = (props: UserProfileProps) => {
       const addr = wallet.toBase58()
       setAddress(addr)
 
-      axios.post(`/api/nfts?address=${addr}`).then((response) => {
-        const assets = response.data.result.assets
+      axios.post(`/api/nfts?address=${addr}&page=${page}`).then((response) => {
+        const rawAssets = response.data.result.assets
+        if (response.data.result.totalPages === page) {
+          setAllPagesFetched(true)
+        }
 
-        setAssets(
-          assets.map(
+        setAssets([
+          ...assets,
+          ...rawAssets.map(
             (asset: any) =>
               ({
                 name: asset.name,
@@ -65,18 +71,24 @@ const UserProfile = (props: UserProfileProps) => {
                     } as Transaction)
                 ),
               } as NFT)
-          )
-        )
+          ),
+        ])
 
         setLoading(false)
       })
     })()
-  }, [connection, props.domain])
+  }, [connection, page, props.domain])
 
   return (
     <div className={cn('section-main', styles.section)}>
       <Main domain={props.domain} address={address} />
-      <Catalog assets={assets} className={styles.catalog} loading={loading} />
+      <Catalog
+        assets={assets}
+        className={styles.catalog}
+        loading={loading}
+        nextPage={() => setPage(page + 1)}
+        allPagesFetched={allPagesFetched}
+      />
     </div>
   )
 }

@@ -16,8 +16,8 @@ export default function handler(req: NextApiRequest, res: NextApiResponse) {
     method: 'qn_fetchNFTs',
     params: {
       wallet: address,
-      page: page || 1,
-      perPage: 18,
+      page: parseInt(page as string || "1"),
+      perPage: 36,
     },
   }
 

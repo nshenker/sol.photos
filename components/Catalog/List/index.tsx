@@ -9,9 +9,17 @@ type ListProps = {
   className?: string
   items: NFT[]
   loading: boolean
+  nextPage: () => void
+  allPagesFetched: boolean
 }
 
-const List = ({ className, items, loading }: ListProps) => {
+const List = ({
+  className,
+  items,
+  loading,
+  nextPage,
+  allPagesFetched,
+}: ListProps) => {
   return (
     <>
       <div className={cn(styles.list, className)}>
@@ -19,15 +27,19 @@ const List = ({ className, items, loading }: ListProps) => {
           <Card className={styles.card} item={x} key={index + Date.now()} />
         ))}
       </div>
-      <div className={styles.btns}>
-        <button
-          className={cn('button-stroke', styles.button)}
-          disabled={loading}
-        >
-          {loading && <Loader className={styles.loader} />}
-          {loading ? 'Loading' : 'Load more'}
-        </button>
-      </div>
+
+      {!allPagesFetched && (
+        <div className={styles.btns}>
+          <button
+            className={cn('button-stroke', styles.button)}
+            disabled={loading}
+            onClick={nextPage}
+          >
+            {loading && <Loader className={styles.loader} />}
+            {loading ? 'Loading' : 'Load more'}
+          </button>
+        </div>
+      )}
     </>
   )
 }

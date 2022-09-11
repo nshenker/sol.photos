@@ -13,6 +13,16 @@ type CardProps = {
   bigPreview?: boolean
 }
 
+type LoaderProps = {
+  src: string
+  width: number
+  quality?: number
+}
+
+const nftImageLoader = ({ src, width, quality }: LoaderProps) => {
+  return `${src}?w=${width}&q=${quality || 75}`
+}
+
 const Card = ({ className, item, bigPreview }: CardProps) => {
   return (
     <div className={cn(styles.card, className)}>
@@ -24,7 +34,7 @@ const Card = ({ className, item, bigPreview }: CardProps) => {
       >
         <div className={styles.image}>
           <Image
-            loader={() => item.image}
+            loader={nftImageLoader}
             src={item.image}
             width={372}
             height={372}
