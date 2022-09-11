@@ -10,7 +10,6 @@ import { NFT } from '../../types'
 type CardProps = {
   className?: string
   item: NFT
-  bigPreview?: boolean
 }
 
 type LoaderProps = {
@@ -23,22 +22,17 @@ const nftImageLoader = ({ src, width, quality }: LoaderProps) => {
   return `${src}?w=${width}&q=${quality || 75}`
 }
 
-const Card = ({ className, item, bigPreview }: CardProps) => {
+const Card = ({ className, item }: CardProps) => {
   return (
     <div className={cn(styles.card, className)}>
-      <div
-        className={cn(styles.preview, {
-          [styles.preview_big]: bigPreview,
-        })}
-        style={{ backgroundColor: '#EBE3D9' }}
-      >
+      <div className={styles.preview}>
         <div className={styles.image}>
           <Image
             loader={nftImageLoader}
             src={item.image}
-            width={372}
-            height={372}
             alt={item.name}
+            layout="fill"
+            objectFit="contain"
           />
         </div>
         <div className={styles.details}>
