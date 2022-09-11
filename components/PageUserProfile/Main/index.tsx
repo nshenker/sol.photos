@@ -61,7 +61,7 @@ const Main = (props: MainProps) => {
   return (
     <div className={cn('container-lg', styles.container)}>
       <div className={styles.wrapper}>
-        <Cover cover="/images/content/profile-cover.png" />
+        <Cover cover="/images/cover.png" />
         <div className={styles.profile}>
           <div className={styles.avatar}>
             <Image src={profileUrl} width={142} height={142} alt={domain} />
