@@ -62,44 +62,27 @@ const Layout = ({ hideHeader, hideFooter, children, gray }: LayoutProps) => {
           content="/metadata/mstile-150x150.png"
         ></meta>
         <link rel="manifest" href="/metadata/site.webmanifest" />
-        {/* Description no longer than 155 characters */}
         <meta
-          name="sol.photos: Turn your .sol domain into an NFT gallery"
-          content="Epic Play-to-Earn NFT Marketplace Kit"
+          name="sol.photos"
+          content="Turn your .sol domain into an NFT gallery"
         />
         {/* Twitter Card data */}
         <meta name="twitter:card" content="summary" />
         <meta name="twitter:site" content="@ui8" />
         <meta
           name="twitter:title"
-          content="AstroClash: Play-to-Earn NFT Marketplace Kit"
+          content="sol.photos"
         />
         <meta
           name="twitter:description"
-          content="AstroClash: Play-to-Earn NFT Marketplace Kit"
+          content="Turn your .sol domain into an NFT gallery"
         />
-        <meta name="twitter:creator" content="@ui8" />
+        <meta name="twitter:creator" content="@onybose" />
         <meta name="twitter:image" content="/metadata/twitter.png" />
-        {/* Open Graph data */}
         <meta
           property="og:title"
-          content="AstroClash: Play-to-Earn NFT Marketplace Kit"
+          content="sol.photos"
         />
-        <meta property="og:type" content="Article" />
-        <meta
-          property="og:url"
-          content="https://ui8.net/ui8/products/astroclash-play-to-earn-nft-marketplace-kit"
-        />
-        <meta property="og:image" content="/metadata/facebook.png" />
-        <meta
-          property="og:description"
-          content="AstroClash: Play-to-Earn NFT Marketplace Kit"
-        />
-        <meta
-          property="og:site_name"
-          content="AstroClash: Play-to-Earn NFT Marketplace Kit"
-        />
-        <meta property="fb:admins" content="132951670226590" />
       </Head>
       <div className={cn(styles.layout, { [styles.gray]: gray })}>
         {!hideHeader && <Header />}
