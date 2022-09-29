@@ -92,16 +92,6 @@ const Main = (props: MainProps) => {
                 Twitter
               </button>
             )}
-
-            {urlRecord && (
-              <button
-                className={cn('button-stroke button-sm', styles.btn)}
-                onClick={() => window.open(urlRecord, '_blank')}
-              >
-                <Icon name="link" size="16" />
-                Website
-              </button>
-            )}
           </div>
         </div>
       </div>
