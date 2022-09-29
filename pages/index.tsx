@@ -4,15 +4,11 @@ import PageProfile from '../components/PageUserProfile'
 import { useEffect, useState } from 'react'
 
 const Home: NextPage = () => {
-  const [domain, setDomain] = useState<string>('')
+  const [domain, setDomain] = useState<string>('shanksy.sol')
   useEffect(() => {
     const hostname = window.location.hostname
     if (hostname === 'shanksy.sol') {
       setDomain('')
-    } else if (hostname.endsWith('.sol.shanksy')) {
-      setDomain(hostname.replace('.shanksy', ''))
-    } else {
-      setDomain('shanksy.sol')
     }
   }, [])
 
